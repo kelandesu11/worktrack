@@ -1,7 +1,5 @@
 # WorkTrack Sprint 1 Backend
 
-This is the simplest complete backend for Sprint 1.
-
 ## What is included
 
 - FastAPI backend
@@ -26,7 +24,3 @@ Then open:
 
 - API docs: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/health`
-
-## Notes
-
-This project creates tables on startup with SQLAlchemy. The raw SQL files are included in `backend/sql` for submission.
