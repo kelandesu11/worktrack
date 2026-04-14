@@ -16,7 +16,7 @@
 ## Run it
 
 ```bash
-cd worktrack-sprint1-backend
+cd worktrack
 docker compose up --build
 ```
 
