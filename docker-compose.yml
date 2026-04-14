@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16
+    container_name: worktrack-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Km15578!
+      POSTGRES_DB: worktrack
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d worktrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: worktrack-backend
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:Km15578!@db:5432/worktrack
+      SECRET_KEY: your-secret-key
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
+    ports:
+      - "8000:8000"
