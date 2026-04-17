@@ -35,5 +35,15 @@ services:
     ports:
       - "8000:8000"
 
+  frontend:
+    build: ./frontend
+    container_name: worktrack-frontend
+    depends_on:
+      - backend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+
 volumes:
   postgres_data:
