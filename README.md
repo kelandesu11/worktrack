@@ -29,4 +29,5 @@ Then open:
 - Frontend: http://localhost:5173
 
 User Login:
-
+Email: Admin@example.com
+Password: Admin123!

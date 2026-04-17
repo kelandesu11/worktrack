@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 
 import app.models
@@ -9,6 +10,14 @@ from app.core.database import Base, SessionLocal, engine
 settings = get_settings()
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def create_materialized_view() -> None:
     db = SessionLocal()
