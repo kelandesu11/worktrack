@@ -1,7 +1,5 @@
 # WorkTrack Sprint 1 Backend
 
-This is the simplest complete backend for Sprint 1.
-
 ## What is included
 
 - FastAPI backend
@@ -21,3 +19,9 @@ From the repository root:
 
 ```bash
 docker compose up --build
+```
+
+Then open:
+
+- API docs: `http://localhost:8000/docs`
+- Health check: `http://localhost:8000/health`
