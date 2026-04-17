@@ -27,3 +27,6 @@ Then open:
 - API docs: `http://localhost:8000/docs`
 - Health check: `http://localhost:8000/health`
 - Frontend: http://localhost:5173
+
+User Login:
+
