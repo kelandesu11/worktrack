@@ -5,26 +5,38 @@ export default function DashboardPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const res = await api.get("/dashboard/summary");
-        setData(res.data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+  async function loadDashboard() {
+    try {
+      const res = await api.get("/dashboard/summary");
+      setData(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    load();
+  useEffect(() => {
+    loadDashboard();
   }, []);
 
   if (loading) return <p>Loading dashboard...</p>;
 
   return (
     <div>
-      <h2>Dashboard</h2>
+      <div className="page-header">
+        <h2>Dashboard</h2>
+        <button
+          className="secondary-btn"
+          onClick={async () => {
+            setLoading(true);
+            await api.post("/reports/refresh-materialized-view");
+            await loadDashboard();
+          }}
+        >
+          Refresh Dashboard
+        </button>
+      </div>
 
       <div className="grid">
         {data.map((item) => (

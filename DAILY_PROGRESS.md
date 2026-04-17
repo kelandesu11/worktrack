@@ -258,3 +258,69 @@ Created the base application structure and connected it to the existing backend 
 
 ### Notes
 Frontend is being developed in small feature branches to keep PRs clean and realistic.
+
+
+### What I worked on
+Implemented the frontend authentication flow and connected it to the backend.
+
+### What was completed
+- Built login form UI
+- Integrated `POST /auth/login`
+- Stored JWT token in localStorage
+- Implemented AuthContext for global auth state
+- Added auto user loading with `GET /auth/me`
+- Created protected route wrapper
+- Added logout functionality
+- Redirect users to login if not authenticated
+
+### Issues encountered
+- Login initially failed due to CORS error (`OPTIONS 405`)
+  - Fixed by adding CORS middleware to backend
+- Backend crash due to incorrect method (`app.add.middleware`)
+  - Fixed to `app.add_middleware`
+- Login returned 401 because seed data was not loaded
+  - Fixed by resetting Docker volume with `docker compose down -v`
+
+### What I learned
+- How JWT auth flows work between frontend and backend
+- How to manage global state in React using context
+- Importance of CORS configuration in fullstack apps
+- Docker volumes don’t rerun seed scripts unless reset
+
+### Next steps
+- Build dashboard UI using real data
+- Implement project list and forms
+- Connect frontend to project endpoints
+
+
+### What I worked on
+Built the dashboard view and project management UI.
+
+### What was completed
+- Connected dashboard to `/dashboard/summary`
+- Displayed project summary cards
+- Built project list page
+- Implemented create project form
+- Implemented update project functionality
+- Refreshed project list after create/update
+
+### Issues encountered
+- Dashboard not showing new projects after creation
+  - Root cause: materialized view not refreshed
+  - Fixed by calling `/reports/refresh-materialized-view`
+- Slight delay in dashboard updates due to background refresh task
+
+### What I learned
+- Materialized views do not update automatically
+- Need to trigger refresh when underlying data changes
+- How frontend interacts with derived/aggregated backend data
+- Handling async updates between UI and backend
+
+### Next steps
+- Build work items list page
+- Add filtering and search
+- Implement create/update work items
+- Add work item detail view with comments
+
+### Notes
+Frontend is now fully connected to backend auth, dashboard, and project APIs. Core flow is working end-to-end.
