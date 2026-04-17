@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.core.deps import get_current_user
+from app.core.deps import require_admin
 from app.models.activity_log import ActivityLog
 from app.models.user import User
 
@@ -11,9 +11,13 @@ router = APIRouter(tags=["activity"])
 
 
 @router.get("/activity")
-def list_activity(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def list_activity(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_admin),
+):
     stmt = select(ActivityLog).order_by(ActivityLog.created_at.desc())
     rows = db.execute(stmt).scalars().all()
+
     return [
         {
             "id": row.id,
