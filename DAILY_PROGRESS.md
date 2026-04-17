@@ -210,3 +210,51 @@
 
 ### Plan for next day
 - Start frontend (Sprint 2)
+
+
+## Date: 2026-04-17
+
+### What I worked on
+Started implementing the frontend using React + Vite.
+
+Created the base application structure and connected it to the existing backend using Docker.
+
+### What was completed
+- Set up React app using Vite
+- Created project folder structure:
+  - pages
+  - layouts
+  - services
+  - context
+- Implemented routing using React Router
+- Created app shell layout:
+  - sidebar navigation
+  - top bar
+- Added placeholder pages:
+  - Dashboard
+  - Projects
+  - Work Items
+  - Login
+- Created AuthContext skeleton for future auth flow
+- Set up Axios API client
+- Added frontend Dockerfile
+- Updated docker-compose to include frontend service
+
+### Issues encountered
+- Initial import errors due to missing files and incorrect file names
+- Fixed by aligning folder structure and filenames with imports
+- Docker caching caused stale file issues → resolved by rebuilding containers
+
+### What I learned
+- Importance of consistent file naming (case-sensitive in Docker/Linux)
+- How to structure a React app cleanly for scaling
+- How frontend and backend connect through Docker networking
+
+### Next steps
+- Implement login form and authentication flow
+- Store and manage JWT token
+- Add protected routes properly
+- Redirect users based on auth state
+
+### Notes
+Frontend is being developed in small feature branches to keep PRs clean and realistic.
