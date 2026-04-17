@@ -1,22 +1,24 @@
 # WorkTrack 
 
+
 ## What is included
 
 - FastAPI backend
 - PostgreSQL in its own container
 - Docker Compose for backend + db
 - SQLAlchemy models and session setup
-- Raw PostgreSQL SQL files
 - JWT authentication
 - TOTP MFA demo
 - Projects, work items, comments, activity, and report endpoints
-- One JSONB filter endpoint
-- One background task endpoint for refreshing the materialized view
+- JSONB filtering
+- Background task endpoint for refreshing the materialized view
+- Database initialization SQL mounted into Postgres startup
 
 ## Run it
 
+From the repository root:
+
 ```bash
-cd worktrack
 docker compose up --build
 ```
 
