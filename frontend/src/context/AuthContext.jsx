@@ -6,43 +6,43 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem("accessToken") || "");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (token) {
       localStorage.setItem("accessToken", token);
+      loadMe();
     } else {
       localStorage.removeItem("accessToken");
       setUser(null);
+      setLoading(false);
     }
   }, [token]);
 
   async function loadMe() {
-    if (!token) return;
-
     try {
-      setLoading(true);
-      const response = await api.get("/auth/me", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const response = await api.get("/auth/me");
       setUser(response.data);
     } catch (error) {
-      console.error("Failed to load current user", error);
+      console.error("Failed to load user", error);
       setToken("");
-      setUser(null);
     } finally {
       setLoading(false);
     }
   }
 
-  useEffect(() => {
-    loadMe();
-  }, [token]);
+  async function login(username_or_email, password) {
+    const response = await api.post("/auth/login", {
+      username_or_email,
+      password
+    });
 
-  function loginWithToken(accessToken) {
-    setToken(accessToken);
+    if (response.data.access_token) {
+      setToken(response.data.access_token);
+      return { success: true };
+    }
+
+    return { success: false };
   }
 
   function logout() {
@@ -56,7 +56,7 @@ export function AuthProvider({ children }) {
       user,
       loading,
       isAuthenticated: Boolean(token),
-      loginWithToken,
+      login,
       logout
     }),
     [token, user, loading]
