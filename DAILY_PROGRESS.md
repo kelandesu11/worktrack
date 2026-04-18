@@ -357,3 +357,39 @@ Implemented the work items page and connected it to backend endpoints.
 
 ### Notes
 Frontend now supports full CRUD (create + update) for projects and work items, with filtering and search.
+
+
+### What I worked on
+Completed the frontend by adding the work item details page and comments functionality.
+
+### What was completed
+- Built work item details page
+- Integrated `GET /work-items/{id}`
+- Displayed full work item information
+- Integrated comments list using `GET /work-items/{id}/comments`
+- Implemented add comment functionality using `POST /work-items/{id}/comments`
+- Linked work items list to details page
+- Added UI polish and empty state handling
+
+### Issues encountered
+- Needed to ensure correct route navigation from list to detail page
+- Minor data mismatches between backend response and frontend expectations
+- Comments initially not refreshing until data reload was triggered
+
+### What I learned
+- Handling dynamic routes in React (`/work-items/:id`)
+- Coordinating multiple API calls for a single page
+- Managing UI state for detail views and nested data (comments)
+- Improving UX with simple layout and feedback states
+
+### Final outcome
+Frontend now fully supports:
+- Authentication
+- Dashboard
+- Projects
+- Work items (list, create, update)
+- Work item details
+- Comments
+
+### Notes
+Frontend is now complete and fully integrated with backend APIs. All required deliverables are implemented.
