@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 
 export default function WorkItemsPage() {
@@ -54,7 +55,10 @@ export default function WorkItemsPage() {
     e.preventDefault();
 
     if (editingId) {
-      await api.patch(`/work-items/${editingId}`, form);
+      await api.patch(`/work-items/${editingId}`, {
+        ...form,
+        project_id: Number(form.project_id)
+      });
       setEditingId(null);
     } else {
       await api.post("/work-items", {
@@ -79,7 +83,7 @@ export default function WorkItemsPage() {
     setForm({
       title: item.title,
       description: item.description || "",
-      project_id: item.project_id,
+      project_id: String(item.project_id),
       status: item.status,
       priority: item.priority
     });
@@ -89,7 +93,6 @@ export default function WorkItemsPage() {
     <div>
       <h2>Work Items</h2>
 
-      {/* Filters */}
       <div className="card">
         <h3>Filters</h3>
 
@@ -126,7 +129,6 @@ export default function WorkItemsPage() {
         </select>
       </div>
 
-      {/* Form */}
       <div className="card">
         <h3>{editingId ? "Edit Work Item" : "Create Work Item"}</h3>
 
@@ -189,22 +191,27 @@ export default function WorkItemsPage() {
         </form>
       </div>
 
-      {/* List */}
       <div className="card">
         <h3>Work Items</h3>
 
-        {items.map((item) => (
-          <div key={item.id} className="list-item">
-            <div>
-              <strong>{item.title}</strong>
-              <p className="subtle">
-                {item.status} | {item.priority}
-              </p>
-            </div>
+        {items.length === 0 ? (
+          <p className="subtle">No work items found.</p>
+        ) : (
+          items.map((item) => (
+            <div key={item.id} className="list-item">
+              <div>
+                <Link to={`/work-items/${item.id}`} className="item-link">
+                  <strong>{item.title}</strong>
+                </Link>
+                <p className="subtle">
+                  {item.status} | {item.priority}
+                </p>
+              </div>
 
-            <button onClick={() => handleEdit(item)}>Edit</button>
-          </div>
-        ))}
+              <button onClick={() => handleEdit(item)}>Edit</button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
