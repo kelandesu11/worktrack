@@ -324,3 +324,36 @@ Built the dashboard view and project management UI.
 
 ### Notes
 Frontend is now fully connected to backend auth, dashboard, and project APIs. Core flow is working end-to-end.
+
+
+### What I worked on
+Implemented the work items page and connected it to backend endpoints.
+
+### What was completed
+- Built work items list view
+- Integrated `GET /work-items`
+- Added search using `/work-items/search`
+- Implemented filtering by status and priority
+- Built create work item form
+- Built update work item functionality
+- Loaded projects for assigning work items
+
+### Issues encountered
+- Work item creation failed when project_id was missing or not converted to number
+  - Fixed by ensuring project_id is selected and cast correctly
+- Some 403 responses due to backend authorization rules
+  - Confirmed expected behavior based on ownership rules
+
+### What I learned
+- Handling query params for filtering and search
+- Managing multiple UI states (form, filters, list)
+- Importance of validating input before API calls
+- How frontend interacts with backend authorization rules
+
+### Next steps
+- Build work item detail page
+- Add comments functionality
+- Improve UI polish and user experience
+
+### Notes
+Frontend now supports full CRUD (create + update) for projects and work items, with filtering and search.
